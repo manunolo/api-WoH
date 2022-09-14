@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = 'ItemsTipo';
+    let alias = 'AtaquesTipo';
     let cols = {
         id: {
             type: dataTypes.TINYINT,
@@ -11,17 +11,18 @@ module.exports = (sequelize, dataTypes) => {
         },
     };
     let config = {
-        tableName : 'items_tipo',
+        tableName : 'ataques_tipo',
         timestamps : false,
     }
 
-    const ItemsTipo = sequelize.define(alias, cols, config);
+    const AtaquesTipo = sequelize.define(alias, cols, config);
 
-    ItemsTipo.associate = function(models) {
-        ItemsTipo.hasMany(models.Items, {
+    AtaquesTipo.associate = function(models) {
+        AtaquesTipo.hasOne(models.AtaquesTipo, {
+            as : 'tipo_ataque',
             foreignKey : 'id',
         });
-    }
+    };
 
-    return ItemsTipo;
+    return AtaquesTipo
 };

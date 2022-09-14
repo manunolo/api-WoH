@@ -2,39 +2,27 @@ module.exports = (sequelize, dataTypes) => {
     let alias = 'JugadoresTipo';
     let cols = {
         id: {
-            type: dataTypes.BIGINT(10),
+            type: dataTypes.TINYINT,
             primaryKey: true,
             autoIncrement: true,
         },
         nombre: {
             type: dataTypes.STRING,
         },
-        email: {
-            type: dataTypes.STRING,
-        },
-        id_tipo: {
-            type: dataTypes.TYNYINT,
-        },
-        vida: {
-            type: dataTypes.TINYINT,
-        },
     };
     let config = {
-        tableName : 'jugadores',
+        tableName : 'jugadores_tipo',
         timestamps : false,
     }
 
-    const Jugadores = sequelize.define(alias, cols, config);
+    const JugadoresTIpo = sequelize.define(alias, cols, config);
 
-    Jugadores.associate = function(models) {
-        Jugadores.belongsTo(models.JugadoresTipo, {
-            as : 'productoscat',
-            through : 'Jugadores_producto',
-            foreignKey : 'id_Jugadores',
-            otherKey : 'id_producto',
+    JugadoresTIpo.associate = function(models) {
+        JugadoresTIpo.hasMany(models.Jugadores, {
+            foreignKey : 'id',
             timestamps : false,
         });
     }
 
-    return Jugadores
+    return JugadoresTIpo;
 };

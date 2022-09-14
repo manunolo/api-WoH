@@ -13,7 +13,7 @@ module.exports = (sequelize, dataTypes) => {
             type: dataTypes.STRING,
         },
         id_tipo: {
-            type: dataTypes.TYNYINT,
+            type: dataTypes.TINYINT,
         },
         vida: {
             type: dataTypes.TINYINT,
@@ -28,8 +28,17 @@ module.exports = (sequelize, dataTypes) => {
 
     Jugadores.associate = function(models) {
         Jugadores.hasOne(models.JugadoresTipo, {
+            as : 'jugadorTipo',
             foreignKey : 'id_tipo',
         });
+    }
+
+    Jugadores.findById = (id) =>{
+        return Jugadores.findOne({
+            where:{
+                id
+            }
+        }).then(jugador=>jugador);
     }
 
     return Jugadores
